@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tomouh Club · Language Challenge 2026</title>
+<meta name="description" content="Build a team, pick a language and take the Tomouh Club Language Challenge.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&family=Cairo:wght@600;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0C10;--surface:#12143a;--indigo:#171078;--line:#2c2f8f;--orange:#FF6B1A;--muted:#a3a6b8}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:#fff;line-height:1.55;overflow-x:hidden;
+ background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:26px 26px}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px;position:relative}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
+.o1{width:420px;height:420px;background:rgba(255,107,26,.22);top:-60px;right:-120px}
+.o2{width:460px;height:460px;background:rgba(23,16,120,.7);top:420px;left:-200px}
+.o3{width:380px;height:380px;background:rgba(255,107,26,.12);top:1500px;right:-160px}
+
+header{position:sticky;top:0;z-index:30;background:rgba(11,12,16,.88);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.nav ul{display:flex;gap:30px;list-style:none;align-items:center}
+.nav ul a{color:var(--muted);font-weight:500;font-size:15px}
+.nav ul a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff!important;font-weight:700;font-size:15px;border:0;border-radius:999px;padding:13px 26px;cursor:pointer;box-shadow:0 0 28px rgba(255,107,26,.4);font-family:inherit;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(255,107,26,.6)}
+.btn.ghost{background:transparent;border:1.5px solid rgba(255,255,255,.3);box-shadow:none}
+.burger{display:none;background:none;border:0;color:var(--orange);font-size:28px;cursor:pointer}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:80px 0 60px}
+.pill{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,107,26,.5);background:rgba(255,107,26,.1);color:var(--orange);font-weight:600;font-size:13px;padding:7px 14px;border-radius:999px;margin-bottom:22px}
+.pill i{width:8px;height:8px;background:var(--orange);border-radius:50%;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px rgba(255,107,26,0);opacity:.5}}
+h1{font-size:clamp(42px,7vw,80px);line-height:1;font-weight:900;letter-spacing:-.03em}
+h1 span{display:block;background:linear-gradient(90deg,#ff6b1a,#ffa24a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:18px;max-width:470px;margin:24px 0 32px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.globe-box{position:relative;aspect-ratio:1;max-width:420px;margin-inline:auto;width:100%}
+.globe-box svg{width:100%;height:100%;overflow:visible}
+.spin{transform-origin:200px 200px;animation:rot 40s linear infinite}
+.spin.r{animation-duration:55s;animation-direction:reverse}
+@keyframes rot{to{transform:rotate(360deg)}}
+.bubble{position:absolute;background:rgba(40,46,110,.88);border:1px solid rgba(255,255,255,.2);border-radius:14px 14px 14px 3px;padding:9px 18px;font-weight:600;font-size:18px;animation:float 5s ease-in-out infinite;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.b1{top:8%;left:4%}.b2{top:32%;right:-6%;animation-delay:-1.2s;background:rgba(255,107,26,.9)}.b3{bottom:14%;left:14%;animation-delay:-2.4s}.b4{bottom:28%;right:0;animation-delay:-3.4s;font-family:'Cairo',sans-serif}
+@keyframes float{50%{transform:translateY(-10px)}}
+
+/* ribbon */
+.ribbon{background:var(--orange);color:#0B0C10;font-weight:800;font-size:22px;overflow:hidden;white-space:nowrap;transform:rotate(-1.2deg);margin:10px -20px 30px;padding:14px 0}
+.ribbon div{display:inline-block;animation:slide 28s linear infinite}
+.ribbon span{margin:0 26px}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* stats + countdown */
+.info{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:40px 0}
+.stat{background:rgba(18,20,58,.75);border:1px solid var(--line);border-radius:16px;padding:20px;text-align:center}
+.stat b{display:block;font-size:30px;font-weight:900;color:var(--orange)}
+.stat span{color:var(--muted);font-size:14px}
+.count{display:flex;gap:10px;justify-content:center}
+.count div{min-width:58px}
+.count b{font-size:28px}
+.count em{font-style:normal;display:block;font-size:11px;color:var(--muted)}
+
+section{padding:64px 0;position:relative}
+.head{text-align:center;margin-bottom:40px}
+.eyebrow{color:var(--orange);font-size:13px;font-weight:700;letter-spacing:.06em;margin-bottom:8px}
+h2{font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-.02em}
+.head p{color:var(--muted);margin-top:8px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+.step{position:relative;background:linear-gradient(160deg,rgba(23,16,120,.55),rgba(18,20,58,.8));border:1px solid var(--line);border-radius:20px;padding:30px 24px}
+.step:not(:last-child)::after{content:"→";position:absolute;right:-18px;top:50%;color:var(--orange);font-size:22px;z-index:2}
+.step .n{width:46px;height:46px;border-radius:14px;background:var(--orange);display:grid;place-items:center;font-weight:900;font-size:20px;margin-bottom:16px}
+.step h3{font-size:19px;margin-bottom:6px}
+.step p{color:var(--muted);font-size:15px}
+
+/* languages */
+.langs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.card{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:34px 18px 26px;text-align:center;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s;font-family:inherit;color:inherit;display:flex;flex-direction:column;align-items:center;gap:8px}
+.card::before{content:attr(data-sym);position:absolute;inset:auto -10px -40px auto;font-size:150px;font-weight:900;color:rgba(255,255,255,.04);line-height:1}
+.card:hover,.card.on{transform:translateY(-6px);border-color:var(--orange);box-shadow:0 14px 40px rgba(255,107,26,.25)}
+.card .sym{width:70px;height:70px;border-radius:20px;background:rgba(255,107,26,.12);border:1.5px solid var(--orange);display:grid;place-items:center;font-size:32px;font-weight:900;color:var(--orange);margin-bottom:8px}
+.ar{font-family:'Cairo',sans-serif}
+.card h3{font-size:18px;font-weight:800}
+.card small{color:var(--muted);font-size:14px}
+.go{margin-top:10px;width:36px;height:36px;border-radius:50%;background:var(--orange);display:grid;place-items:center;font-weight:700}
+
+/* team */
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.person{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;text-align:center;position:relative}
+.person.lead{border-color:var(--orange);box-shadow:0 0 30px rgba(255,107,26,.2)}
+.badge{position:absolute;top:10px;right:10px;background:var(--orange);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;font-size:13px}
+.avatar{background:#d9d9de;border-radius:12px;aspect-ratio:1;display:grid;place-items:end center;overflow:hidden;margin-bottom:12px}
+.avatar svg{width:70%}
+.person b{display:block;font-size:15px}.person span{color:var(--muted);font-size:13px}
+
+/* register */
+.reg{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:start}
+.reg h2{font-size:clamp(34px,5vw,54px);line-height:1.05}
+.reg h2 span{color:var(--orange)}
+.reg .lead{margin:18px 0 26px}
+.benefits{list-style:none;display:grid;gap:14px}
+.benefits li{display:flex;gap:12px;align-items:center}
+.benefits i{width:36px;height:36px;border:1.5px solid var(--orange);border-radius:10px;display:grid;place-items:center;color:var(--orange);font-style:normal}
+.script{font-family:'Caveat',cursive;font-size:36px;color:var(--orange);margin-top:30px}
+.form-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:32px;box-shadow:0 0 70px rgba(255,107,26,.15)}
+.form-card h3{text-align:center;font-size:22px;margin-bottom:6px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;font-size:14px;font-weight:500;margin:14px 0 6px}
+label em{color:var(--muted);font-style:normal;font-weight:400}
+input,select{width:100%;background:rgba(11,12,16,.55);border:1px solid var(--line);border-radius:10px;color:#fff;font:inherit;font-size:15px;padding:12px 14px}
+input::placeholder{color:#7d80a0}
+select option{background:#12143a}
+input:focus,select:focus{outline:none;border-color:var(--orange)}
+.mate{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:10px}
+.mate button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:10px;width:42px;cursor:pointer;font-size:18px}
+.add{background:none;border:1px dashed var(--orange);color:var(--orange);border-radius:10px;padding:10px;width:100%;cursor:pointer;font:inherit;font-weight:600}
+.hint{color:var(--muted);font-size:12.5px;margin-top:6px}
+.err{color:#ff8a8a;font-size:13px;margin-top:8px}
+.submit{width:100%;justify-content:center;margin-top:22px;padding:16px;font-size:16px}
+.submit[disabled]{opacity:.6;cursor:wait}
+.safe{color:var(--muted);font-size:13px;text-align:center;margin-top:12px}
+.hp{position:absolute;left:-9999px}
+.thanks{text-align:center;padding:30px 10px}
+.ok{width:76px;height:76px;border-radius:50%;background:var(--orange);display:grid;place-items:center;font-size:38px;margin:0 auto 18px;box-shadow:0 0 50px rgba(255,107,26,.55)}
+.thanks h3{font-size:27px;margin-bottom:10px}.thanks p{color:var(--muted)}
+[hidden]{display:none!important}
+.st{display:inline-block;padding:5px 16px;border-radius:999px;font-weight:700;margin:6px 0}.st.pending{background:rgba(255,255,255,.15)}.st.accepted{background:rgba(31,157,98,.3);color:#6ee7a8}.st.waitlist{background:rgba(185,128,28,.3);color:#fbc765}.st.rejected{background:rgba(194,59,59,.3);color:#ff9d9d}
+#tRes{text-align:center;margin-top:16px;color:var(--muted)}
+
+/* faq */
+.faq{max-width:760px;margin:auto;display:grid;gap:12px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+details[open]{border-color:var(--orange)}
+summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary::after{content:"+";color:var(--orange);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);margin-top:10px;font-size:15px}
+
+/* final cta */
+.final{background:linear-gradient(120deg,var(--indigo),#2a1fb0);border-radius:28px;padding:56px 28px;text-align:center;position:relative;overflow:hidden}
+.final::after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,107,26,.35);filter:blur(80px);right:-60px;bottom:-120px}
+.final h2{position:relative}.final p{color:#d3d4f0;margin:10px 0 26px;position:relative}.final .btn{position:relative}
+
+footer{border-top:1px solid rgba(255,255,255,.08);margin-top:60px;padding:28px 0;color:var(--muted);font-size:14px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.foot nav{display:flex;gap:22px}
+.soc{display:flex;gap:10px}.soc a{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700}
+.soc a:hover{border-color:var(--orange);color:var(--orange)}
+
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+@media (max-width:900px){
+ .burger{display:block}
+ .nav ul{display:none;position:absolute;top:68px;left:0;right:0;background:var(--bg);flex-direction:column;padding:20px 24px;gap:18px;border-bottom:1px solid rgba(255,255,255,.08)}
+ .nav ul.open{display:flex}
+ .hero{grid-template-columns:1fr;padding:44px 0 30px}
+ .langs,.team,.info{grid-template-columns:1fr 1fr}
+ .steps{grid-template-columns:1fr}.step:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-20px}
+ .reg{grid-template-columns:1fr;gap:34px}
+}
+@media (max-width:520px){.row2,.mate{grid-template-columns:1fr}.mate button{width:100%;height:40px}.form-card{padding:22px 18px}.ribbon{font-size:18px}}
+
+/* ===== v4: animations ===== */
+#prog{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--orange),#ffa24a);z-index:60}
+@keyframes up{from{opacity:0;transform:translateY(28px)}}
+h1{animation:up .9s cubic-bezier(.2,.7,.2,1) both}h1 span{animation:up .9s .25s cubic-bezier(.2,.7,.2,1) both}
+.hero .pill{animation:up .8s both}.hero .lead{animation:up .9s .45s both}.hero .cta{animation:up .9s .6s both}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn:hover::after{left:130%}
+.globe-box{aspect-ratio:auto;max-width:480px}
+#globe{width:100%;aspect-ratio:1;display:block;cursor:grab;touch-action:pan-y}
+#globe:active{cursor:grabbing}
+.pinlabel{position:absolute;left:0;top:0;pointer-events:none;background:rgba(255,107,26,.96);color:#0B0C10;border-radius:14px 14px 14px 3px;padding:8px 14px;font-weight:800;font-size:18px;white-space:nowrap;opacity:0;transition:opacity .3s;box-shadow:0 8px 30px rgba(255,107,26,.45)}
+.pinlabel small{display:block;font-weight:600;font-size:12px;opacity:.8}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.chip{background:rgba(18,20,58,.85);border:1px solid var(--line);color:#fff;border-radius:999px;padding:8px 16px;font-weight:600;font-size:14px;cursor:pointer;transition:.2s;font-family:inherit}
+.chip:hover{border-color:var(--orange)}
+.chip.on{background:var(--orange);border-color:var(--orange);box-shadow:0 0 22px rgba(255,107,26,.5)}
+.rvc{opacity:0;transform:translateY(28px);transition:opacity .7s var(--d,0s),transform .7s var(--d,0s)}
+.rvc.in{opacity:1;transform:none}
+.card::after,.stat::after,.person::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(240px at var(--mx,50%) var(--my,50%),rgba(255,107,26,.16),transparent 70%);opacity:0;transition:opacity .3s}
+.card:hover::after,.stat:hover::after,.person:hover::after{opacity:1}
+.stat{position:relative;overflow:hidden}
+.card:hover,.card.on{transform:perspective(800px) translateY(-6px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.person{transition:transform .25s,border-color .25s}.person:hover{transform:translateY(-6px)}
+.orb{transition:transform .6s ease-out}
+.sticky{position:fixed;left:14px;right:14px;bottom:14px;z-index:40;justify-content:center;display:none;transform:translateY(140%);transition:transform .35s}
+.sticky.show{transform:none}
+@media(max-width:900px){.sticky{display:inline-flex}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<a class="btn sticky" id="stk" href="#register">Register your team →</a>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+
+<header>
+ <div class="wrap nav">
+  <a href="#top" aria-label="Tomouh Club"><svg width="34" height="42" viewBox="0 0 34 42" fill="none"><path d="M17 1c2 5 7 7 7 13 0 3-2 5-4 6 .5-3-1-5-3-7-1 3-5 4-5 9 0 2 1 3 2 4-4-1-7-4-7-9C7 9 15 7 17 1Z" fill="#FF6B1A"/><path d="M5 25h9v9a3 3 0 0 0 6 0v-9h9" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <button class="burger" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+  <ul id="menu" onclick="this.classList.remove('open')">
+   <li><a href="#top">Home</a></li><li><a href="#how">How it works</a></li><li><a href="#languages">Languages</a></li><li><a href="#team">Our Team</a></li><li><a href="#track">My team</a></li><li><a href="#faq">FAQ</a></li>
+   <li><a class="btn" href="#register">Register Now</a></li>
+  </ul>
+ </div>
+</header>
+
+<main id="top">
+ <div class="wrap hero">
+  <div class="rv">
+   <div class="pill"><i></i>Registration is open</div>
+   <h1>One World. <span>Four Languages.</span></h1>
+   <p class="lead">The Tomouh Club Language Challenge. Form a team, pick your language and prove what you can do.</p>
+   <div class="cta"><a class="btn" href="#register">Register your team →</a><a class="btn ghost" href="#how">How it works</a></div>
+  </div>
+  <div class="globe-box">
+   <canvas id="globe" role="img" aria-label="Rotating globe showing where each language is spoken"></canvas>
+   <div class="pinlabel" id="pl"></div>
+   <div class="chips"><button class="chip ar" data-i="0" type="button">العربية</button><button class="chip" data-i="1" type="button">Français</button><button class="chip" data-i="2" type="button">English</button><button class="chip" data-i="3" type="button">Español</button></div>
+  </div>
+ </div>
+
+ <div class="ribbon" aria-hidden="true"><div>
+  <span>Hello</span><span>★</span><span>Bonjour</span><span>★</span><span>Hola</span><span>★</span><span class="ar">مرحبًا</span><span>★</span>
+  <span>Hello</span><span>★</span><span>Bonjour</span><span>★</span><span>Hola</span><span>★</span><span class="ar">مرحبًا</span><span>★</span>
+  <span>Hello</span><span>★</span><span>Bonjour</span><span>★</span><span>Hola</span><span>★</span><span class="ar">مرحبًا</span><span>★</span>
+  <span>Hello</span><span>★</span><span>Bonjour</span><span>★</span><span>Hola</span><span>★</span><span class="ar">مرحبًا</span><span>★</span>
+ </div></div>
+
+ <div class="wrap">
+  <div class="info">
+   <div class="stat"><b data-count="4">0</b><span>Languages</span></div>
+   <div class="stat"><b id="teamCount">–</b><span>Teams registered</span></div>
+   <div class="stat"><b data-count="1">0</b><span>Challenge, one language per team</span></div>
+   <div class="stat" id="when"><b>Soon</b><span>Date announced by email</span></div>
+  </div>
+ </div>
+
+ <section id="how"><div class="wrap">
+  <div class="head rv"><p class="eyebrow">How it works</p><h2>Three steps to the challenge</h2><p>Only the team leader needs to register.</p></div>
+  <div class="steps">
+   <div class="step"><div class="n">1</div><h3>Register your team</h3><p>The leader enters their details, the teammates' accounts, a team name and the chosen language.</p></div>
+   <div class="step"><div class="n">2</div><h3>Wait for our email</h3><p>We review the registrations and email the team leader with the date of the challenge.</p></div>
+   <div class="step"><div class="n">3</div><h3>Take the challenge</h3><p>Show up with your team and compete in your language.</p></div>
+  </div>
+ </div></section>
+
+ <section id="languages"><div class="wrap">
+  <div class="head rv"><p class="eyebrow">Language selection</p><h2>Choose Your Language</h2><p>Pick the language your team will compete in.</p></div>
+  <div class="langs">
+   <button class="card" data-lang="Arabic" data-sym="ع"><div class="sym ar">ع</div><h3 class="ar">اكتشف جمال لغتك</h3><small>Discover the beauty of your language.</small><span class="go">→</span></button>
+   <button class="card" data-lang="French" data-sym="Fr"><div class="sym">Aa</div><h3>Explore la langue française</h3><small>Explore the French language.</small><span class="go">→</span></button>
+   <button class="card" data-lang="English" data-sym="En"><div class="sym">Aa</div><h3>Improve your English</h3><small>Take your English further.</small><span class="go">→</span></button>
+   <button class="card" data-lang="Spanish" data-sym="Es"><div class="sym">ñ</div><h3>¡Descubre el español!</h3><small>Discover Spanish.</small><span class="go">→</span></button>
+  </div>
+ </div></section>
+
+ <section id="team"><div class="wrap">
+  <div class="head rv"><p class="eyebrow">Our team</p><h2>Meet Your Language Team</h2><p>Dedicated to guide you and support your journey.</p></div>
+  <div class="team">
+   <div class="person lead"><span class="badge">★</span><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="36" r="18" fill="#111"/><path d="M12 100c0-26 16-38 38-38s38 12 38 38z" fill="#111"/></svg></div><b>Workshop Leader</b><span>Challenge lead</span></div>
+   <div class="person"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="36" r="18" fill="#111"/><path d="M12 100c0-26 16-38 38-38s38 12 38 38z" fill="#111"/></svg></div><b>Language Mentor</b><span>Mentor</span></div>
+   <div class="person"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="36" r="18" fill="#111"/><path d="M12 100c0-26 16-38 38-38s38 12 38 38z" fill="#111"/></svg></div><b>Language Mentor</b><span>Mentor</span></div>
+   <div class="person"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="36" r="18" fill="#111"/><path d="M12 100c0-26 16-38 38-38s38 12 38 38z" fill="#111"/></svg></div><b>Language Mentor</b><span>Mentor</span></div>
+  </div>
+ </div></section>
+
+ <section id="register"><div class="wrap reg">
+  <div class="rv">
+   <p class="eyebrow">REGISTRATION</p>
+   <h2>Join the <span>Language Challenge</span></h2>
+   <p class="lead">One team leader registers the whole team. Add your teammates, pick a language and choose a team name.</p>
+   <ul class="benefits"><li><i>★</i>Compete as a team</li><li><i>⚙</i>Build your skills and confidence</li><li><i>☺</i>Meet new people</li><li><i>◎</i>Open new opportunities</li></ul>
+   <p class="script">Let's learn together!</p>
+  </div>
+  <div class="form-card rv">
+   <form id="form" novalidate>
+    <h3>Team Registration</h3>
+    <div class="row2">
+     <div><label for="firstName">First name</label><input id="firstName" name="firstName" autocomplete="given-name" placeholder="Your first name"></div>
+     <div><label for="lastName">Last name</label><input id="lastName" name="lastName" autocomplete="family-name" placeholder="Your last name"></div>
+    </div>
+    <label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+    <label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="05 / 06 / 07 XX XX XX XX">
+    <label for="teamName">Team name</label><input id="teamName" name="teamName" placeholder="Your team name">
+    <label for="language">Language</label>
+    <select id="language" name="language"><option value="">Choose a language</option><option>Arabic</option><option>French</option><option>English</option><option>Spanish</option></select>
+    <label>Teammates <em>(accounts)</em></label>
+    <div id="mates"></div>
+    <button type="button" class="add" id="addMate">+ Add a teammate</button>
+    <p class="hint">Add each teammate's name and their Instagram or email account.</p>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="err" id="err" role="alert"></p>
+    <button class="btn submit" id="submit" type="submit">Submit registration →</button>
+    <p class="safe">🔒 Your information is safe with us.</p>
+   </form>
+   <div class="thanks" id="thanks" hidden>
+    <div class="ok">✓</div><h3>Thank you for registering!</h3>
+    <p>Your team is registered. Please wait — we will email you soon with the date of your challenge.</p>
+   </div>
+  </div>
+ </div></section>
+
+ <section id="track"><div class="wrap">
+  <div class="head rv"><p class="eyebrow">My team</p><h2>Track your registration</h2><p>Enter the leader's email and your team name.</p></div>
+  <div class="form-card rv" style="max-width:520px;margin:auto">
+   <form id="trackForm" novalidate>
+    <label for="tEmail">Leader's email</label><input id="tEmail" type="email" placeholder="you@example.com">
+    <label for="tTeam">Team name</label><input id="tTeam" placeholder="Your team name">
+    <button class="btn submit" type="submit">Check status</button>
+   </form>
+   <div id="tRes" aria-live="polite"></div>
+  </div>
+ </div></section>
+
+ <section id="faq"><div class="wrap">
+  <div class="head rv"><p class="eyebrow">FAQ</p><h2>Good to know</h2></div>
+  <div class="faq">
+   <details><summary>Who registers the team?</summary><p>The team leader. They fill in the form once and add the accounts of their teammates.</p></details>
+   <details><summary>How many teammates can I add?</summary><p>Up to six teammates, besides the leader.</p></details>
+   <details><summary>When is the challenge?</summary><p>The date is not announced yet. We will email the team leader as soon as it is confirmed, so use an email address you check often.</p></details>
+   <details><summary>How do I know if my team is accepted?</summary><p>Use "Track your registration" with the leader's email and team name. You will also get emails from us.</p></details>
+   <details><summary>Can my team compete in several languages?</summary><p>Each registration is for one language. To enter another language, register a new team.</p></details>
+  </div>
+ </div></section>
+
+ <div class="wrap"><div class="final rv">
+  <h2>Ready to start your language journey?</h2>
+  <p>Join the challenge and be part of something bigger.</p>
+  <a class="btn" href="#register">Register Now →</a> <button class="btn ghost" id="share" type="button" style="margin-left:8px">Share ↗</button>
+ </div></div>
+</main>
+
+<footer><div class="wrap foot">
+ <span>© Tomouh Club</span>
+ <nav><a href="#top">Home</a><a href="#languages">Languages</a><a href="#team">Our Team</a><a href="#faq">FAQ</a></nav>
+ <div class="soc"><a href="#" aria-label="Instagram">IG</a><a href="#" aria-label="Facebook">FB</a><a href="#" aria-label="YouTube">YT</a></div>
+</div></footer>
+
+<script>
+/* 1) Paste your Google Apps Script web app URL here */
+const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+/* 2) Optional: set the challenge date to show a countdown, e.g. "2026-12-05T10:00:00". Leave empty until announced. */
+const EVENT_DATE = "";
+const MAX_MATES = 6;
+const $ = s => document.querySelector(s);
+const mates = $('#mates');
+
+function addMate(){
+  if (mates.children.length >= MAX_MATES) return;
+  const d = document.createElement('div'); d.className = 'mate';
+  d.innerHTML = '<input placeholder="Teammate name" aria-label="Teammate name"><input placeholder="Instagram / email" aria-label="Teammate account"><button type="button" aria-label="Remove teammate">×</button>';
+  d.querySelector('button').onclick = () => { d.remove(); $('#addMate').hidden = false; };
+  mates.appendChild(d);
+  $('#addMate').hidden = mates.children.length >= MAX_MATES;
+}
+$('#addMate').onclick = addMate; addMate();
+
+document.querySelectorAll('.card').forEach(c => c.onclick = () => {
+  document.querySelectorAll('.card').forEach(x => x.classList.remove('on'));
+  c.classList.add('on'); $('#language').value = c.dataset.lang; $('#register').scrollIntoView();
+});
+
+// scroll reveal
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.12});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+// countdown (only if EVENT_DATE is set)
+if (EVENT_DATE){
+  const box = $('#when'), t = new Date(EVENT_DATE).getTime();
+  const tick = () => {
+    const s = Math.max(0, Math.floor((t - Date.now())/1000));
+    const p = [['Days',86400],['Hrs',3600],['Min',60],['Sec',1]].map(([l,k]) => '<div><b>'+String(Math.floor(s/k)%(k===86400?1e6:k===1?60:k===60?60:24)).padStart(2,'0')+'</b><em>'+l+'</em></div>').join('');
+    box.innerHTML = '<div class="count">'+p+'</div>';
+  };
+  tick(); setInterval(tick, 1000);
+}
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const api = async body => (await fetch(SCRIPT_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(body)})).json();
+if (!SCRIPT_URL.startsWith('PASTE')) fetch(SCRIPT_URL + '?action=stats').then(r => r.json()).then(j => { if (j.ok) countTo($('#teamCount'), j.total); }).catch(() => {});
+
+$('#trackForm').addEventListener('submit', async e => {
+  e.preventDefault(); const o = $('#tRes');
+  if (SCRIPT_URL.startsWith('PASTE')) return o.textContent = 'The site is not connected yet.';
+  o.textContent = 'Checking…';
+  try {
+    const r = await api({action:'status', email:$('#tEmail').value.trim(), teamName:$('#tTeam').value.trim()});
+    o.innerHTML = r.ok
+      ? '<span class="st ' + esc(r.status).toLowerCase() + '">' + esc(r.status) + '</span><p><b style="color:#fff">' + esc(r.team) + '</b> · ' + esc(r.language) + '</p><p>' + (r.challengeAt ? 'Challenge: ' + esc(r.challengeAt).replace('T', ' at ') : 'Challenge date: to be announced') + '</p>'
+      : '<p style="color:#ff8a8a">' + esc(r.error) + '</p>';
+  } catch (x) { o.textContent = 'Could not check right now. Try again later.'; }
+});
+
+
+// ===== animations & interactive globe =====
+function countTo(el,n){ if(!el) return; const t0=performance.now(); (function f(t){ const k=Math.min(1,(t-t0)/1100); el.textContent=Math.round(n*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(f); })(t0); }
+const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+const prog = $('#prog'), stk = $('#stk'); let regVis = false;
+addEventListener('scroll', () => { const h = document.documentElement; prog.style.transform = 'scaleX(' + (scrollY/((h.scrollHeight-innerHeight)||1)) + ')'; stk.classList.toggle('show', scrollY>700 && !regVis); }, {passive:true});
+new IntersectionObserver(e => { regVis = e[0].isIntersecting; stk.classList.toggle('show', scrollY>700 && !regVis); }).observe($('#register'));
+
+const rio = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ const c=e.target; c.classList.add('in'); rio.unobserve(c); setTimeout(()=>{ c.classList.remove('rvc','in'); c.style.removeProperty('--d'); },1600); } }), {threshold:.15});
+document.querySelectorAll('.info,.steps,.langs,.team,.faq').forEach(g => [...g.children].forEach((c,i) => { c.classList.add('rvc'); c.style.setProperty('--d', i*90+'ms'); rio.observe(c); }));
+const cio = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ countTo(e.target, +e.target.dataset.count); cio.unobserve(e.target); } }));
+document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+
+document.querySelectorAll('.card,.stat,.person').forEach(el => {
+  el.addEventListener('pointermove', e => { const r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+    el.style.setProperty('--mx',x*100+'%'); el.style.setProperty('--my',y*100+'%');
+    if(el.classList.contains('card')){ el.style.setProperty('--rx',((.5-y)*10)+'deg'); el.style.setProperty('--ry',((x-.5)*12)+'deg'); } });
+  el.addEventListener('pointerleave', () => { el.style.setProperty('--rx','0deg'); el.style.setProperty('--ry','0deg'); });
+});
+if(!reduce) addEventListener('pointermove', e => { const x=e.clientX/innerWidth-.5, y=e.clientY/innerHeight-.5; document.querySelectorAll('.orb').forEach((o,i)=>o.style.transform='translate('+(x*(i+1)*-40)+'px,'+(y*(i+1)*-40)+'px)'); }, {passive:true});
+
+$('#share').onclick = async () => { const d={title:'Tomouh Language Challenge',text:'Join the Tomouh Club Language Challenge!',url:location.href.split('#')[0]};
+  try{ if(navigator.share) await navigator.share(d); else { await navigator.clipboard.writeText(d.url); $('#share').textContent='Link copied ✓'; } }catch(_){} };
+
+function confetti(){
+  if(reduce) return;
+  const c=document.createElement('canvas'); c.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:99'; document.body.appendChild(c);
+  const x=c.getContext('2d'); c.width=innerWidth; c.height=innerHeight;
+  const cols=['#FF6B1A','#ffa24a','#ffffff','#6f82ff','#2a1fb0'];
+  const ps=Array.from({length:140},()=>({x:innerWidth/2,y:innerHeight*.6,vx:(Math.random()-.5)*16,vy:-Math.random()*16-4,s:Math.random()*7+4,r:Math.random()*6,vr:(Math.random()-.5)*.3,c:cols[Math.random()*5|0]}));
+  let n=0;
+  (function f(){ x.clearRect(0,0,c.width,c.height); ps.forEach(p=>{ p.vy+=.35; p.x+=p.vx; p.y+=p.vy; p.vx*=.99; p.r+=p.vr; x.save(); x.translate(p.x,p.y); x.rotate(p.r); x.fillStyle=p.c; x.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6); x.restore(); }); if(++n<170) requestAnimationFrame(f); else c.remove(); })();
+}
+
+// ---- interactive globe: language regions ----
+(function(){
+  const cv=$('#globe'), ctx=cv.getContext('2d'), pl=$('#pl'), D=Math.PI/180;
+  const POLY=[
+   [-165,65,-156,71,-125,70,-95,72,-80,72,-62,60,-56,52,-66,44,-75,38,-81,31,-80,25,-84,29,-90,29,-97,26,-97,21,-95,18,-91,18,-88,21,-87,16,-83,15,-79,9,-77,8,-80,7,-86,11,-92,14,-96,16,-105,20,-110,24,-112,29,-117,32,-121,35,-124,40,-124,48,-130,55,-140,60,-150,61,-158,57,-165,60],
+   [-55,60,-45,60,-20,70,-20,80,-45,83,-70,80,-60,70],
+   [-77,8,-72,12,-62,10,-52,5,-50,0,-35,-5,-38,-13,-40,-22,-48,-26,-58,-35,-65,-41,-66,-47,-69,-52,-72,-54,-75,-50,-73,-40,-71,-30,-70,-18,-76,-14,-81,-5,-80,0,-77,4],
+   [-10,36,-9,43,-1,46,-4,48,2,51,8,54,10,58,5,62,15,69,28,71,40,67,60,69,80,73,105,77,140,72,170,69,180,66,180,62,160,58,156,51,140,52,142,46,135,43,130,42,127,38,126,35,122,40,121,32,122,30,119,25,110,20,108,16,109,11,105,9,100,13,100,7,104,1,98,8,98,16,94,17,91,22,87,21,80,15,78,8,73,17,72,22,67,25,60,25,57,27,50,30,48,29,50,26,52,24,56,26,59,22,52,16,43,12,39,21,35,28,34,31,36,36,30,36,27,37,26,40,22,37,19,41,16,38,12,42,8,44,3,43,-1,37,-5,36],
+   [-17,21,-10,30,-6,36,10,37,11,33,20,31,32,31,35,28,43,12,51,12,40,-3,40,-15,35,-25,32,-29,20,-35,18,-32,12,-18,13,-6,9,4,-8,4,-15,10,-17,15],
+   [114,-22,122,-18,130,-12,137,-12,142,-11,146,-19,153,-26,150,-37,141,-38,135,-34,130,-32,115,-34,114,-26],
+   [-6,50,1,51,2,53,-2,57,-5,58,-6,55,-5,52],
+   [130,31,135,34,140,36,142,40,141,45,139,38,133,35],
+   [44,-25,48,-14,50,-15,47,-25],[95,5,104,-5,106,-6,98,2],[109,1,117,7,119,1,116,-4,110,-3]
+  ];
+  const vec=(lat,lon)=>[Math.cos(lat*D)*Math.sin(lon*D),Math.sin(lat*D),Math.cos(lat*D)*Math.cos(lon*D)];
+  const inPoly=(x,y,f)=>{ let c=false; for(let i=0,j=f.length-2;i<f.length;j=i,i+=2){ const xi=f[i],yi=f[i+1],xj=f[j],yj=f[j+1]; if((yi>y)!==(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi) c=!c; } return c; };
+  const dots=[]; for(let lat=-78;lat<=82;lat+=2.6){ const st=2.6/Math.max(.25,Math.cos(lat*D)); for(let lon=-180;lon<180;lon+=st) if(POLY.some(p=>inPoly(lon,lat,p))) dots.push(vec(lat,lon)); }
+  const L=[
+   {k:'Arabic', city:'Algiers', lat:36.7, lon:3.1, hi:'مرحبًا', x:[[30,31.2],[24.7,46.7]]},
+   {k:'French', city:'Paris', lat:48.9, lon:2.3, hi:'Bonjour', x:[[45.5,-73.6],[14.7,-17.4]]},
+   {k:'English', city:'New York', lat:40.7, lon:-74, hi:'Hello', x:[[51.5,-0.1],[-33.9,151.2]]},
+   {k:'Spanish', city:'Mexico City', lat:19.4, lon:-99.1, hi:'Hola', x:[[40.4,-3.7],[-34.6,-58.4]]}
+  ].map(l=>({...l, v:vec(l.lat,l.lon), xv:l.x.map(a=>vec(a[0],a[1]))}));
+  let dpr=1, yaw=0, pitch=.5, tYaw=0, tPitch=.5, active=0, pause=0, drag=null, vis=true;
+  const wrap=a=>Math.atan2(Math.sin(a),Math.cos(a));
+  const rot=v=>{ const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch); const x=v[0]*cy-v[2]*sy, z=v[0]*sy+v[2]*cy; return [x, v[1]*cp-z*sp, v[1]*sp+z*cp]; };
+  const size=()=>{ dpr=Math.min(devicePixelRatio||1,2); cv.width=cv.height=Math.round(cv.clientWidth*dpr); };
+  size(); addEventListener('resize',size);
+  new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(cv);
+
+  function setActive(i,manual){
+    active=i; const l=L[i]; tYaw=l.lon*D; tPitch=Math.max(-.9,Math.min(.9,l.lat*D));
+    pl.innerHTML='<span class="'+(i===0?'ar':'')+'">'+l.hi+'</span><small>'+l.city+' · '+l.k+'</small>';
+    document.querySelectorAll('.chip').forEach((c,j)=>c.classList.toggle('on',j===i));
+    if(manual) pause=Date.now()+12000;
+  }
+  document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>setActive(+c.dataset.i,true));
+  cv.addEventListener('pointerdown',e=>{ drag={x:e.clientX,y:e.clientY}; cv.setPointerCapture(e.pointerId); pause=Date.now()+12000; });
+  cv.addEventListener('pointermove',e=>{ if(!drag) return; tYaw-=(e.clientX-drag.x)*.006; tPitch=Math.max(-1.2,Math.min(1.2,tPitch+(e.clientY-drag.y)*.006)); yaw=tYaw; pitch=tPitch; drag={x:e.clientX,y:e.clientY}; });
+  ['pointerup','pointercancel'].forEach(t=>cv.addEventListener(t,()=>drag=null));
+  if(!reduce) setInterval(()=>{ if(Date.now()>pause) setActive((active+1)%L.length); },4500);
+
+  function arc(a,b,t,hot){
+    const w=Math.acos(Math.max(-1,Math.min(1,a[0]*b[0]+a[1]*b[1]+a[2]*b[2]))); if(w<.01) return;
+    const pt=u=>{ const s=Math.sin(w), k=1+.14*Math.sin(Math.PI*u); return [0,1,2].map(i=>(Math.sin((1-u)*w)*a[i]+Math.sin(u*w)*b[i])/s*k); };
+    ctx.beginPath(); let pen=false;
+    for(let i=0;i<=40;i++){ const p=rot(pt(i/40)); if(p[2]>0){ const X=cx+p[0]*R, Y=cx-p[1]*R; pen?ctx.lineTo(X,Y):ctx.moveTo(X,Y); pen=true; } else pen=false; }
+    ctx.strokeStyle=hot?'rgba(255,107,26,.85)':'rgba(255,255,255,.12)'; ctx.lineWidth=1.5*dpr; ctx.setLineDash([4*dpr,6*dpr]); ctx.lineDashOffset=-t*.03*dpr; ctx.stroke(); ctx.setLineDash([]);
+    if(hot){ const q=rot(pt(((t*.0004)%1))); if(q[2]>0){ ctx.beginPath(); ctx.arc(cx+q[0]*R,cx-q[1]*R,3*dpr,0,7); ctx.fillStyle='#fff'; ctx.fill(); } }
+  }
+  let R=0, cx=0;
+  function draw(t){
+    const W=cv.width; cx=W/2; R=W*.36; ctx.clearRect(0,0,W,W);
+    const g=ctx.createRadialGradient(cx-R*.3,cx-R*.3,R*.1,cx,cx,R); g.addColorStop(0,'#2b3fb8'); g.addColorStop(1,'#0b0c2a');
+    ctx.beginPath(); ctx.arc(cx,cx,R,0,7); ctx.fillStyle=g; ctx.shadowColor='rgba(255,107,26,.7)'; ctx.shadowBlur=W*.05; ctx.fill(); ctx.shadowBlur=0;
+    ctx.lineWidth=2*dpr; ctx.strokeStyle='#FF6B1A'; ctx.stroke();
+    const av=L[active].v;
+    for(const v of dots){ const p=rot(v); if(p[2]<=0) continue; const hot=(v[0]*av[0]+v[1]*av[1]+v[2]*av[2])>.97;
+      ctx.fillStyle=hot?'rgba(255,107,26,'+(.4+.6*p[2])+')':'rgba(140,160,255,'+(.2+.6*p[2])+')'; ctx.fillRect(cx+p[0]*R-dpr,cx-p[1]*R-dpr,2*dpr,2*dpr); }
+    L.forEach((l,j)=>{ if(j!==active) arc(av,l.v,t,false); }); L.forEach((l,j)=>{ if(j!==active) arc(av,l.v,t,true); });
+    L.forEach((l,j)=>{
+      l.xv.forEach(v=>{ const p=rot(v); if(p[2]>0){ ctx.beginPath(); ctx.arc(cx+p[0]*R,cx-p[1]*R,2.6*dpr,0,7); ctx.fillStyle='rgba(255,255,255,'+(.4+.5*p[2])+')'; ctx.fill(); } });
+      const p=rot(l.v); if(p[2]<=0) return; const X=cx+p[0]*R, Y=cx-p[1]*R;
+      if(j===active){ const k=(t*.0008)%1; ctx.beginPath(); ctx.arc(X,Y,(6+k*22)*dpr,0,7); ctx.strokeStyle='rgba(255,107,26,'+(1-k)+')'; ctx.lineWidth=2*dpr; ctx.stroke(); }
+      ctx.beginPath(); ctx.arc(X,Y,(j===active?5.5:4)*dpr,0,7); ctx.fillStyle='#FF6B1A'; ctx.fill(); ctx.lineWidth=1.5*dpr; ctx.strokeStyle='#fff'; ctx.stroke();
+    });
+    const p=rot(av); pl.style.opacity=p[2]>.2?1:0; pl.style.transform='translate('+(cx+p[0]*R)/dpr+'px,'+((cx-p[1]*R)/dpr-58)+'px)';
+  }
+  (function frame(t){ if(vis){ const k=reduce?1:.07; yaw+=wrap(tYaw-yaw)*k; pitch+=(tPitch-pitch)*k; if(!drag&&!reduce) tYaw+=.0005; draw(t); } requestAnimationFrame(frame); })(0);
+  setActive(0);
+})();
+
+$('#form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target, err = $('#err'); err.textContent = '';
+  if (f.website.value) return;
+  const v = n => f[n].value.trim();
+  if (!v('firstName') || !v('lastName') || !v('teamName') || !v('language')) return err.textContent = 'Please fill in all the required fields.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) return err.textContent = 'Enter a valid email address.';
+  const phone = v('phone').replace(/[\s.-]/g,'');
+  if (!/^(0|\+213)[5-7]\d{8}$/.test(phone)) return err.textContent = 'Enter a valid Algerian phone number (05, 06 or 07).';
+  const teammates = [...mates.children].map(d => { const i = d.querySelectorAll('input'); return {name:i[0].value.trim(), account:i[1].value.trim()}; }).filter(t => t.name || t.account);
+  if (teammates.some(t => !t.name || !t.account)) return err.textContent = 'Each teammate needs a name and an account.';
+  if (SCRIPT_URL.startsWith('PASTE')) return err.textContent = 'The site is not connected to Google Sheets yet.';
+  const data = {firstName:v('firstName'), lastName:v('lastName'), email:v('email'), phone, teamName:v('teamName'), language:v('language'), teammates};
+  const btn = $('#submit'); btn.disabled = true; btn.textContent = 'Sending…';
+  try {
+    const r = await api({action:'register', ...data});
+    if (!r.ok){ err.textContent = r.error || 'Registration failed.'; btn.disabled = false; btn.textContent = 'Submit registration →'; return; }
+    f.hidden = true; $('#thanks').hidden = false; $('#thanks').scrollIntoView({block:'center'}); confetti();
+  } catch (x) {
+    err.textContent = 'Could not send your registration. Check your connection and try again.';
+    btn.disabled = false; btn.textContent = 'Submit registration →';
+  }
+});
+</script>
+</body>
+</html>

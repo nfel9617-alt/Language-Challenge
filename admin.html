@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Tomouh · Organizers</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0C10;--surface:#12143a;--line:#2c2f8f;--orange:#FF6B1A;--muted:#a3a6b8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:#fff;line-height:1.5;min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.btn{background:var(--orange);border:0;border-radius:10px;padding:9px 16px;font-weight:600;cursor:pointer;font-size:14px;color:#fff}
+.btn.g{background:transparent;border:1px solid var(--line);color:#fff}
+.btn.ok{background:#1f9d62}.btn.no{background:#c23b3b}.btn.w{background:#b9801c}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+input,select,textarea{background:rgba(11,12,16,.6);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;font-size:14px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--orange)}
+select option{background:#12143a}
+label{display:block;font-size:13px;color:var(--muted);margin:12px 0 5px}
+[hidden]{display:none!important}
+/* login */
+#login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:32px;width:100%;max-width:380px;box-shadow:0 0 60px rgba(255,107,26,.15)}
+.box h1{font-size:22px;margin-bottom:4px}.box p{color:var(--muted);font-size:14px}
+.err{color:#ff8a8a;font-size:13px;margin-top:10px;min-height:18px}
+/* app */
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;background:rgba(11,12,16,.95);z-index:5;gap:10px;flex-wrap:wrap}
+.top b{font-size:17px}.top b span{color:var(--orange)}
+.main{max-width:1280px;margin:0 auto;padding:24px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.s{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.s b{font-size:28px;font-weight:800;display:block}.s span{color:var(--muted);font-size:13px}
+.langbars{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.lb small{color:var(--muted);font-size:13px;display:flex;justify-content:space-between}
+.bar{height:8px;background:rgba(255,255,255,.08);border-radius:8px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--orange)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.tools input{max-width:260px}.tools select{width:auto}
+.bulk{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:rgba(255,107,26,.1);border:1px solid rgba(255,107,26,.4);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:900px}
+th,td{padding:11px 12px;text-align:left;border-bottom:1px solid rgba(255,255,255,.06);white-space:nowrap}
+th{color:var(--muted);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+tr.r{cursor:pointer}tr.r:hover{background:rgba(255,255,255,.04)}
+td input[type=checkbox],th input[type=checkbox]{width:auto;accent-color:var(--orange)}
+.st{padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600}
+.pending{background:rgba(255,255,255,.12)}.accepted{background:rgba(31,157,98,.25);color:#6ee7a8}.waitlist{background:rgba(185,128,28,.28);color:#fbc765}.rejected{background:rgba(194,59,59,.28);color:#ff9d9d}
+.empty{padding:40px;text-align:center;color:var(--muted)}
+dialog{background:var(--surface);color:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;width:min(560px,94vw);margin:auto}
+dialog::backdrop{background:rgba(0,0,0,.7)}
+dialog h2{font-size:19px;margin-bottom:4px}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:6px 10px;font-size:14px;margin:12px 0}.kv span{color:var(--muted)}.kv b{font-weight:500;word-break:break-word}
+.row{display:flex;gap:10px;margin-top:18px;justify-content:flex-end;flex-wrap:wrap}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--orange);padding:11px 20px;border-radius:10px;font-weight:600;font-size:14px;z-index:20}
+@media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.langbars{grid-template-columns:1fr 1fr}.main{padding:14px}}
+</style>
+</head>
+<body>
+
+<div id="login">
+ <form class="box" id="lf">
+  <svg width="30" height="38" viewBox="0 0 34 42" fill="none"><path d="M17 1c2 5 7 7 7 13 0 3-2 5-4 6 .5-3-1-5-3-7-1 3-5 4-5 9 0 2 1 3 2 4-4-1-7-4-7-9C7 9 15 7 17 1Z" fill="#FF6B1A"/><path d="M5 25h9v9a3 3 0 0 0 6 0v-9h9" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <h1 style="margin-top:12px">Organizers area</h1><p>Tomouh Club · Language Challenge</p>
+  <label for="u">Username</label><input id="u" autocomplete="username" required>
+  <label for="p">Password</label><input id="p" type="password" autocomplete="current-password" required>
+  <p class="err" id="le" role="alert"></p>
+  <button class="btn" style="width:100%;margin-top:6px" id="lb">Log in</button>
+ </form>
+</div>
+
+<div id="app" hidden>
+ <div class="top"><b>Tomouh <span>Admin</span> · <small id="who" style="color:var(--muted);font-weight:400"></small></b>
+  <div style="display:flex;gap:8px"><button class="btn g" id="rf">↻ Refresh</button><button class="btn g" id="ex">⬇ Export CSV</button><button class="btn g" id="lo">Log out</button></div></div>
+ <div class="main">
+  <div class="stats" id="stats"></div>
+  <div class="langbars" id="lbars"></div>
+  <div class="tools">
+   <input id="q" placeholder="Search team, leader, email, phone…" aria-label="Search">
+   <select id="fl"><option value="">All languages</option><option>Arabic</option><option>French</option><option>English</option><option>Spanish</option></select>
+   <select id="fs"><option value="">All statuses</option><option>Pending</option><option>Accepted</option><option>Waitlist</option><option>Rejected</option></select>
+  </div>
+  <div class="bulk" id="bulk" hidden>
+   <b id="bc"></b>
+   <button class="btn ok" data-st="Accepted">Accept</button><button class="btn w" data-st="Waitlist">Waitlist</button><button class="btn no" data-st="Rejected">Reject</button><button class="btn g" data-st="Pending">Pending</button>
+   <button class="btn g" id="bd">📅 Set challenge date</button><button class="btn" id="be">✉ Send email</button>
+  </div>
+  <div class="tw"><table><thead><tr><th><input type="checkbox" id="all" aria-label="Select all"></th><th>ID</th><th>Team</th><th>Language</th><th>Leader</th><th>Email</th><th>Phone</th><th>Members</th><th>Status</th><th>Challenge</th></tr></thead><tbody id="tb"></tbody></table><div class="empty" id="em" hidden>No teams match.</div></div>
+ </div>
+</div>
+
+<dialog id="dd"><h2 id="dt"></h2><div id="dk"></div>
+ <label>Status</label><select id="ds"><option>Pending</option><option>Accepted</option><option>Waitlist</option><option>Rejected</option></select>
+ <label>Challenge date & time</label><input type="datetime-local" id="dc">
+ <label>Internal notes</label><textarea id="dn" rows="3" maxlength="500"></textarea>
+ <div class="row"><button class="btn no" id="dx" style="margin-right:auto">Delete</button><button class="btn g" id="dm">✉ Email</button><button class="btn g" id="dcl">Close</button><button class="btn" id="dsv">Save</button></div>
+</dialog>
+
+<dialog id="ed"><h2>Send email</h2><p style="color:var(--muted);font-size:13px" id="ec"></p>
+ <label>Template</label><select id="et"><option value="">Custom</option><option value="acc">Team accepted</option><option value="date">Challenge date</option><option value="wl">Waitlist</option><option value="rej">Not selected</option></select>
+ <label>Subject</label><input id="es"><label>Message</label><textarea id="eb" rows="8"></textarea>
+ <p style="color:var(--muted);font-size:12px;margin-top:6px">Placeholders: {team} {leader} {language} {date} {status}</p>
+ <p class="err" id="ee"></p>
+ <div class="row"><button class="btn g" id="ecl">Cancel</button><button class="btn" id="esd">Send</button></div>
+</dialog>
+
+<dialog id="dg"><h2>Set challenge date</h2><p style="color:var(--muted);font-size:13px" id="gc"></p>
+ <label>Date & time</label><input type="datetime-local" id="gv">
+ <div class="row"><button class="btn g" id="gcl">Cancel</button><button class="btn" id="gsv">Apply</button></div>
+</dialog>
+
+<script>
+const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const T = {
+ acc:['Your team {team} is accepted','Hello {leader},\n\nGreat news: your team "{team}" has been accepted in the {language} Language Challenge.\nChallenge date: {date}.\n\nSee you soon,\nTomouh Club'],
+ date:['Your challenge date — {team}','Hello {leader},\n\nYour team "{team}" will take the {language} challenge on {date}.\nPlease make sure all your teammates are available.\n\nTomouh Club'],
+ wl:['Your team {team} is on the waiting list','Hello {leader},\n\nThank you for registering "{team}". Your team is currently on the waiting list. We will contact you if a place opens.\n\nTomouh Club'],
+ rej:['About your registration — {team}','Hello {leader},\n\nThank you for your interest. Unfortunately we could not include "{team}" in this edition of the {language} challenge. We hope to see you at our next events.\n\nTomouh Club']
+};
+let token = localStorage.getItem('tk'), rows = [], sel = new Set(), cur = null, mailIds = [];
+
+async function api(body){
+  if (SCRIPT_URL.startsWith('PASTE')) throw new Error('Set SCRIPT_URL first.');
+  const r = await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({...body,token})});
+  const j = await r.json();
+  if (j.auth){ out(); throw new Error(j.error); }
+  return j;
+}
+function toast(m){ const t=document.createElement('div'); t.className='toast'; t.textContent=m; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function out(){ localStorage.removeItem('tk'); localStorage.removeItem('who'); token=null; $('#app').hidden=true; $('#login').hidden=false; }
+
+$('#lf').onsubmit = async e => {
+  e.preventDefault(); $('#le').textContent=''; $('#lb').disabled=true;
+  try{
+    const j = await api({action:'login',user:$('#u').value.trim(),pass:$('#p').value});
+    if(!j.ok) return $('#le').textContent=j.error;
+    token=j.token; localStorage.setItem('tk',token); localStorage.setItem('who',j.user); $('#p').value=''; start();
+  }catch(x){ $('#le').textContent=x.message||'Connection error.'; }
+  finally{ $('#lb').disabled=false; }
+};
+$('#lo').onclick = async () => { try{ await api({action:'logout'}); }catch(_){} out(); };
+$('#rf').onclick = load;
+
+function start(){ $('#login').hidden=true; $('#app').hidden=false; $('#who').textContent=localStorage.getItem('who')||''; load(); }
+async function load(){
+  try{ const j=await api({action:'list'}); if(!j.ok) return toast(j.error); rows=j.rows; sel=new Set([...sel].filter(id=>rows.some(r=>r.id===id))); render(); }
+  catch(x){ toast(x.message); }
+}
+
+function filtered(){
+  const q=$('#q').value.toLowerCase(), l=$('#fl').value, s=$('#fs').value;
+  return rows.filter(r=>(!l||r.language===l)&&(!s||r.status===s)&&(!q||[r.team,r.first,r.last,r.email,r.phone,r.id].join(' ').toLowerCase().includes(q)));
+}
+function render(){
+  const c=s=>rows.filter(r=>r.status===s).length;
+  $('#stats').innerHTML=[['Total teams',rows.length],['Pending',c('Pending')],['Accepted',c('Accepted')],['Waitlist',c('Waitlist')],['Rejected',c('Rejected')]].map(([k,v])=>`<div class="s"><b>${v}</b><span>${k}</span></div>`).join('');
+  $('#lbars').innerHTML=['Arabic','French','English','Spanish'].map(l=>{const n=rows.filter(r=>r.language===l).length;return `<div class="lb"><small><span>${l}</span><b>${n}</b></small><div class="bar"><i style="width:${rows.length?n/rows.length*100:0}%"></i></div></div>`}).join('');
+  const f=filtered();
+  $('#em').hidden=f.length>0;
+  $('#tb').innerHTML=f.map(r=>`<tr class="r" data-id="${esc(r.id)}"><td><input type="checkbox" class="ck" ${sel.has(r.id)?'checked':''} aria-label="Select ${esc(r.team)}"></td><td>${esc(r.id)}</td><td><b>${esc(r.team)}</b></td><td>${esc(r.language)}</td><td>${esc(r.first)} ${esc(r.last)}</td><td>${esc(r.email)}</td><td>${esc(r.phone)}</td><td>${1+r.teammates.length}</td><td><span class="st ${esc(r.status).toLowerCase()}">${esc(r.status)}</span></td><td>${r.challengeAt?esc(String(r.challengeAt).replace('T',' ')):'—'}</td></tr>`).join('');
+  $('#bulk').hidden=!sel.size; $('#bc').textContent=sel.size+' selected';
+  $('#all').checked=f.length>0&&f.every(r=>sel.has(r.id));
+}
+['#q','#fl','#fs'].forEach(s=>$(s).oninput=render);
+$('#all').onchange=e=>{ filtered().forEach(r=>e.target.checked?sel.add(r.id):sel.delete(r.id)); render(); };
+$('#tb').onclick=e=>{
+  const tr=e.target.closest('tr'); if(!tr) return; const id=tr.dataset.id;
+  if(e.target.classList.contains('ck')){ e.target.checked?sel.add(id):sel.delete(id); render(); return; }
+  openDetail(id);
+};
+
+// bulk status
+document.querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>setFields([...sel],{status:b.dataset.st}));
+async function setFields(ids,fields,msg){
+  const j=await api({action:'update',ids,fields}); if(!j.ok) return toast(j.error);
+  rows.forEach(r=>{ if(ids.includes(r.id)) Object.assign(r,{status:fields.status??r.status,challengeAt:fields.challengeAt??r.challengeAt,notes:fields.notes??r.notes}); });
+  render(); toast(msg||'Updated '+ids.length+' team(s)');
+}
+
+// detail
+function openDetail(id){
+  cur=rows.find(r=>r.id===id); if(!cur) return;
+  $('#dt').textContent=cur.team+' · '+cur.language;
+  $('#dk').innerHTML='<div class="kv">'+[['ID',cur.id],['Leader',cur.first+' '+cur.last],['Email',cur.email],['Phone',cur.phone],['Registered',String(cur.created).slice(0,16).replace('T',' ')],['Teammates',cur.teammates.length?cur.teammates.map(t=>esc(t.name)+' — '+esc(t.account)).join('<br>'):'none'],['Last email',cur.lastEmail||'—']].map(([k,v])=>`<span>${k}</span><b>${k==='Teammates'?v:esc(v)}</b>`).join('')+'</div>';
+  $('#ds').value=cur.status; $('#dc').value=cur.challengeAt||''; $('#dn').value=cur.notes||'';
+  $('#dd').showModal();
+}
+$('#dcl').onclick=()=>$('#dd').close();
+$('#dsv').onclick=async()=>{ await setFields([cur.id],{status:$('#ds').value,challengeAt:$('#dc').value,notes:$('#dn').value},'Saved'); $('#dd').close(); };
+$('#dx').onclick=async()=>{
+  if(!confirm('Delete team "'+cur.team+'" permanently?')) return;
+  const j=await api({action:'delete',id:cur.id}); if(!j.ok) return toast(j.error);
+  rows=rows.filter(r=>r.id!==cur.id); sel.delete(cur.id); $('#dd').close(); render(); toast('Deleted');
+};
+$('#dm').onclick=()=>{ $('#dd').close(); openMail([cur.id]); };
+
+// bulk date
+$('#bd').onclick=()=>{ $('#gc').textContent=sel.size+' team(s)'; $('#gv').value=''; $('#dg').showModal(); };
+$('#gcl').onclick=()=>$('#dg').close();
+$('#gsv').onclick=async()=>{ if(!$('#gv').value) return; await setFields([...sel],{challengeAt:$('#gv').value},'Challenge date set'); $('#dg').close(); };
+
+// email
+$('#be').onclick=()=>openMail([...sel]);
+function openMail(ids){ mailIds=ids; $('#ec').textContent='To: '+ids.length+' team leader(s)'; $('#et').value=''; $('#es').value=''; $('#eb').value=''; $('#ee').textContent=''; $('#ed').showModal(); }
+$('#et').onchange=e=>{ const t=T[e.target.value]; if(t){ $('#es').value=t[0]; $('#eb').value=t[1]; } };
+$('#ecl').onclick=()=>$('#ed').close();
+$('#esd').onclick=async()=>{
+  const s=$('#es').value.trim(), b=$('#eb').value.trim(); if(!s||!b) return $('#ee').textContent='Subject and message are required.';
+  if(!confirm('Send this email to '+mailIds.length+' team leader(s)?')) return;
+  $('#esd').disabled=true;
+  try{ const j=await api({action:'email',ids:mailIds,subject:s,body:b}); if(!j.ok) return $('#ee').textContent=j.error; $('#ed').close(); toast(j.sent+' email(s) sent'); load(); }
+  catch(x){ $('#ee').textContent=x.message; } finally{ $('#esd').disabled=false; }
+};
+
+// export
+$('#ex').onclick=()=>{
+  const h=['ID','Registered','First name','Last name','Email','Phone','Team','Language','Teammates','Status','Challenge','Notes'];
+  const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  const lines=[h.map(q).join(',')].concat(filtered().map(r=>[r.id,r.created,r.first,r.last,r.email,r.phone,r.team,r.language,r.teammates.map(t=>t.name+' ('+t.account+')').join('; '),r.status,r.challengeAt,r.notes].map(q).join(',')));
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv'})); a.download='tomouh-teams.csv'; a.click();
+};
+
+if(token) start();
+</script>
+</body>
+</html>
